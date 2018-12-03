@@ -1,0 +1,13 @@
+hashfunction(){
+var reader = new FileReader()
+reader.readAsArrayBuffer(this.files[0])
+reader.onload = function(){
+crypto.subtle.digest("SHA-256", this.result)
+.then(function(buffer) {
+var hexCodes = []
+var view = new DataView(buffer)
+for (var i = 0; i < view.byteLength; i += 1) {
+var stringValue = view.getUint8(i).toString(16)
+var paddedValue = ('0' + stringValue).slice(-2)
+hexCodes.push(paddedValue)}
+alert(hexCodes.join(""))})}}
